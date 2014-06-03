@@ -26,38 +26,11 @@ var newFunction = function() {
 });
 };
 
-// fileShreader(function(err, files) {});
-
-//Splits the default template into two parts on {{ content }}
-lib.fileReader('source/layouts/default.html', function(err, contents) {
-	if (contents.search("{{ content }}") !== -1) {
-		var defaultTemplate = contents.split("{{ content }}");
-		console.log(defaultTemplate[0]);
-		console.log('contents should go in here');
-		console.log(defaultTemplate[1]);
-	} else {
-		console.log('something went wrong!');
-	}
-});
-
-//Generates a file from the default template and create a new file with its contents
-lib.fileWriter('newfornowf');
+var mP = __dirname;
+console.log(myPath);
+lib.sourceTemplate(path.join(mP, 'test/fixtures/'));
 
 
-lib.pathReader('source', function(err, files) {
-	console.log(files);
-});
 
 
-//Reading the contents of default layout
-lib.pathReader('source/layouts', function(err, files) {
-	var filtered = files.filter(lib.isHtml);
-	// console.log(filtered);
-});
-
-//Reading the contents of the source pages
-lib.pathReader('source/pages', function(err, files) {
-	var filtered = files.filter(lib.isHtml);
-	// console.log(filtered);
-});
 
