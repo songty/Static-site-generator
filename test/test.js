@@ -70,7 +70,7 @@ describe('fileWriter()', function() {
 });
 
 describe('fileShreader()', function() {
-	it('deletes files inside a direcotry', function(done) {
+	it('deletes files inside a directory', function(done) {
 		lib.fileShreader(function() {
 			lib.pathReader(fixtures('generated'), function(err, files) {
 				expect(files.length).to.be.eql(0);
