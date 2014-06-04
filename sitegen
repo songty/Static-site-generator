@@ -27,10 +27,27 @@ var newFunction = function() {
 };
 
 var mP = __dirname;
-console.log(myPath);
-lib.sourceTemplate(path.join(mP, 'test/fixtures/'));
+console.log(mP);
+var tempPath = path.join(mP, 'test/fixtures/source/layouts/default.html');
+var pagePath = path.join(mP, 'test/fixtures/source/pages');
+// var writePath = path.join(mP, 'test/fixtures/generated/new.txt');
+lib.sourceTemplate(tempPath, function(temp) {
+	lib.sourcePage(pagePath, function(pages) {
+		pages.forEach(function(eachPage) {
+			lib.fileReader(path.join(pagePath, eachPage), function(err, contents) {
+				var resultArray = temp[0].concat(contents, temp[1]);
+				console.log(resultArray);
+				var writePath = path.join(mP, 'test/fixtures/generated', eachPage);
+				lib.fileWriter(writePath, resultArray);
+			});
+		});
+
+	});
+});
 
 
 
+
+lib.fileShreader(function(){});
 
 

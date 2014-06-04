@@ -4,6 +4,7 @@ var path = require('path');
 
 var fileReader = module.exports.fileReader = function (textFile, cb) {
 	fs.readFile(textFile, options, function(err, contents) {
+		if (err) { return cb(err); }
 		cb(null, contents);
 	});
 };
@@ -18,6 +19,7 @@ var fileReader = module.exports.fileReader = function (textFile, cb) {
  */
 var pathReader = module.exports.pathReader = function (ipath, cb) {
 	fs.readdir(ipath, function(err, files) {
+		if (err) { return cb(err); }
 		cb(null, files);
 	});
 };
@@ -31,8 +33,8 @@ var fileWriter = module.exports.fileWriter = function (newFile, contents) {
 
 //Deletes all the files in the generated director
 var fileShreader  = module.exports.fileShreader = function (cb) {
-	var targetDir = path.join(__dirname, 'generated');
-	pathReader('generated', function(err, files) {
+	var targetDir = path.join(__dirname, 'test/fixtures/generated');
+	pathReader(targetDir, function(err, files) {
 		files.forEach(function(element) {
 			var targetFile = path.join(targetDir, element);
 			fs.unlink(targetFile);
