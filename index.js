@@ -2,6 +2,14 @@ var fs = require('fs');
 var options = { encoding: 'utf8' };
 var path = require('path');
 
+/**
+ * Reads files at a path
+ *
+ * @function
+ * @param {string} ipath - The path at which to read
+ * @param {function} cb - The callback to call. The callback receives two
+ * arguments, `err`, an error, and `contents`, the contents of path file.
+ */
 var fileReader = module.exports.fileReader = function (textFile, cb) {
 	fs.readFile(textFile, options, function(err, contents) {
 		if (err) { return cb(err); }
@@ -10,7 +18,7 @@ var fileReader = module.exports.fileReader = function (textFile, cb) {
 };
 
 /**
- * Reads files at a path
+ * Reads path to a file
  *
  * @function
  * @param {string} ipath - The path at which to read
@@ -24,14 +32,27 @@ var pathReader = module.exports.pathReader = function (ipath, cb) {
 	});
 };
 
-//Makes a new file in the generated directory
-var fileWriter = module.exports.fileWriter = function (newFile, contents) {
+/**
+ * Writes files at a path
+ *
+ * @function
+ * @param {string} newFile - The path at which to write
+ * @param {function} contents - The contents be written.
+ * @param {function} cb - The call back of this function return nothing.
+ */
+var fileWriter = module.exports.fileWriter = function (newFile, contents, cb) {
 	fs.writeFile(newFile, contents, options, function (err) {
 		if (err) throw err;
+		cb();
   	});
 };
 
-//Deletes all the files in the generated director
+/**
+ * Deltes all files in the generated directory
+ *
+ * @function
+ * @param {function} cb - The call back to shreader.
+ */
 var fileShreader  = module.exports.fileShreader = function (cb) {
 	var targetDir = path.join(__dirname, 'test/fixtures/generated');
 	pathReader(targetDir, function(err, files) {
@@ -44,6 +65,12 @@ var fileShreader  = module.exports.fileShreader = function (cb) {
 	});
 };
 
+/**
+ * Check if the string contains html
+ *
+ * @function
+ * @param {string} ifile - return true if ifile is html.
+ */
 var isHtml = module.exports.isHtml = function(ifile) {
 	return ifile.search('html') !== -1;
 };
@@ -64,6 +91,14 @@ var sourcePage = module.exports.sourcePage = function(path, cb) {
 };
 
 //Splits the default template into two parts on {{ content }}
+/**
+ * Reading the contents of the template pages
+ *
+ * @function
+ * @param {string} path - The path of the source template.
+ * @param {function} cb - The callback to call. The callback receives one
+ * argument, `temp`, an array with two elemnts with contents split in half.
+ */
 var sourceTemplate = module.exports.sourceTemplate = function(path, cb) {
 	fileReader(path, function(err, contents) {
 		if (err) { return cb(err); }		

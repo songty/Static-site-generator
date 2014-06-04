@@ -59,15 +59,23 @@ describe('sourcePage()', function() {
 
 
 describe('fileWriter()', function() {
-	it.skip('creates a new file in generated directory', function(done) {
-		lib.fileWriter('testcase');
+	it('creates a new file in generated directory', function(done) {
+		lib.fileWriter(fixtures('testcase'), 'hello world', function() {
+			lib.fileReader(fixtures('testcase'), function(err, contents) {
+				expect(contents).to.be.eql('hello world');
+				done();
+			});
+		});
 	});
 });
 
 describe('fileShreader()', function() {
-	it.skip('deletes files inside a direcotry', function(done) {
-		lib.fileShreader(function(err, files) {
-			expect();
+	it('deletes files inside a direcotry', function(done) {
+		lib.fileShreader(function() {
+			lib.pathReader(fixtures('generated'), function(err, files) {
+				expect(files.length).to.be.eql(0);
+				done();
+			});
 		});
 	});
 });

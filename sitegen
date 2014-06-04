@@ -32,7 +32,7 @@ var generator = function () {
 						var resultArray = temp[0].concat(contents, temp[1]);
 						console.log(resultArray);
 						var writePath = path.join(mP, 'test/fixtures/generated', eachPage);
-						lib.fileWriter(writePath, resultArray);
+						lib.fileWriter(writePath, resultArray, function(){});
 					});
 				});
 
