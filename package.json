@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/songty/Static-site-generator-/issues"
   },
-  "homepage": "https://github.com/songty/Static-site-generator-"
+  "homepage": "https://github.com/songty/Static-site-generator-",
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.20.1"
+  }
 }

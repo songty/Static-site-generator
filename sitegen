@@ -14,40 +14,38 @@ var lib = require('./index');
 
 program
   .version('0.0.1')
-  .option('')
+  .option('-d, --deletegen', 'Deletes files in generated')
+  // .option('-ab, --template-source', 'Generates template file with source')
+  .option('-g, --gen', 'Makes the file with template and source')
   .parse(process.argv);
 
-var newFunction = function() {
-	fs.readFile(file, options, function (err, contents) {
-	fs.writeFile(newFile, contents, options, function (err) {
-	if (err) throw err;
-  	console.log('It\'s saved!');
-  	});
-});
-};
+var generator = function () {
+	lib.fileShreader(function() {
+		var mP = __dirname;
+		var tempPath = path.join(mP, 'test/fixtures/source/layouts/default.html');
+		var pagePath = path.join(mP, 'test/fixtures/source/pages');
+		lib.sourceTemplate(tempPath, function(temp) {
+			lib.sourcePage(pagePath, function(pages) {
+				pages.forEach(function(eachPage) {
+					lib.fileReader(path.join(pagePath, eachPage), function(err, contents) {
+						if (err) throw err;
+						var resultArray = temp[0].concat(contents, temp[1]);
+						console.log(resultArray);
+						var writePath = path.join(mP, 'test/fixtures/generated', eachPage);
+						lib.fileWriter(writePath, resultArray);
+					});
+				});
 
-var mP = __dirname;
-console.log(mP);
-var tempPath = path.join(mP, 'test/fixtures/source/layouts/default.html');
-var pagePath = path.join(mP, 'test/fixtures/source/pages');
-// var writePath = path.join(mP, 'test/fixtures/generated/new.txt');
-lib.sourceTemplate(tempPath, function(temp) {
-	lib.sourcePage(pagePath, function(pages) {
-		pages.forEach(function(eachPage) {
-			lib.fileReader(path.join(pagePath, eachPage), function(err, contents) {
-				var resultArray = temp[0].concat(contents, temp[1]);
-				console.log(resultArray);
-				var writePath = path.join(mP, 'test/fixtures/generated', eachPage);
-				lib.fileWriter(writePath, resultArray);
 			});
 		});
+	}); 
+};
 
-	});
-});
+if (program.gen) generator();
 
-
-
-
-lib.fileShreader(function(){});
+if (program.deletegen) {
+	lib.fileShreader(function(){}); 
+	console.log('You have deleted files!');
+} 
 
 

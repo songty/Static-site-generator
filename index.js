@@ -35,6 +35,7 @@ var fileWriter = module.exports.fileWriter = function (newFile, contents) {
 var fileShreader  = module.exports.fileShreader = function (cb) {
 	var targetDir = path.join(__dirname, 'test/fixtures/generated');
 	pathReader(targetDir, function(err, files) {
+		if (err) { return cb(err); }
 		files.forEach(function(element) {
 			var targetFile = path.join(targetDir, element);
 			fs.unlink(targetFile);
@@ -56,6 +57,7 @@ var isHtml = module.exports.isHtml = function(ifile) {
  */
 var sourcePage = module.exports.sourcePage = function(path, cb) {
 	pathReader(path, function(err, files) {
+		if (err) { return cb(err); }		
 		var filtered = files.filter(isHtml);
 		cb(filtered);
 	});
@@ -64,6 +66,7 @@ var sourcePage = module.exports.sourcePage = function(path, cb) {
 //Splits the default template into two parts on {{ content }}
 var sourceTemplate = module.exports.sourceTemplate = function(path, cb) {
 	fileReader(path, function(err, contents) {
+		if (err) { return cb(err); }		
 		if (contents.search("{{ content }}") !== -1) {
 			var defaultTemplate = contents.split("{{ content }}");
 			cb(defaultTemplate);
