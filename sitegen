@@ -10,7 +10,7 @@ var newFile = process.argv[3];
 var options = { encoding: 'utf8' };
 var path = require('path');
 var lib = require('./index');
-
+var tmp = require('temp');
 
 program
   .version('0.0.1')
@@ -28,5 +28,13 @@ if (program.deletegen) {
 	lib.fileShreader(function(){}); 
 	console.log('You have deleted files!');
 } 
+
+tmp.dir({ mode: 0750, prefix: 'generated' }, function _tempDirCreated(err, path) {
+  if (err) throw err;
+
+  console.log("Dir: ", path);
+});
+
+
 
 

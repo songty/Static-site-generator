@@ -2,6 +2,8 @@ var chai = require('chai');
 var expect = chai.expect;
 var lib = require('../index');
 var path = require('path');
+var tmp = require('temp').track();
+
 var fixtures =  function (fix) {
 	return path.join(__dirname, 'fixtures', fix);
 };
@@ -71,22 +73,27 @@ describe('fileWriter()', function() {
 
 describe('fileShreader()', function() {
 	it('deletes files inside a directory', function(done) {
-		lib.fileShreader(function() {
-			lib.pathReader(fixtures('generated'), function(err, files) {
-				expect(files.length).to.be.eql(0);
-				done();
+		tmp.mkdir('generated', function(err, dirPath) {
+			if (err) { throw err; }
+			lib.fileShreader(function() {
+				lib.pathReader(dirPath, function(err, files) {
+					expect(files.length).to.be.eql(0);
+					done();
+				});
 			});
-		});
+		});		
 	});
 });
 
 describe('generator()', function() {
 	it('creates files from template with source pages', function(done) {
-		lib.generator(function() {
-			lib.pathReader(fixtures('generated'), function(err, files) {
-				lib.pathReader(fixtures('source'), function(err, source) {
-					expect(files.length).to.be.eql(source.length);
-					done();
+		tmp.mkdir('new', function(err, dirPath) {
+			lib.generator(function() {
+				lib.pathReader(dirPath, function(err, files) {
+					lib.pathReader(fixtures('source'), function(err, source) {
+						expect(files.length).to.be.eql(source.length);
+						done();
+					});
 				});
 			});
 		});
