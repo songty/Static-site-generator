@@ -79,3 +79,16 @@ describe('fileShreader()', function() {
 		});
 	});
 });
+
+describe('generator()', function() {
+	it('creates files from template with source pages', function(done) {
+		lib.generator(function() {
+			lib.pathReader(fixtures('generated'), function(err, files) {
+				lib.pathReader(fixtures('source'), function(err, source) {
+					expect(files.length).to.be.eql(source.length);
+					done();
+				});
+			});
+		});
+	});
+});

@@ -57,11 +57,16 @@ var fileShreader  = module.exports.fileShreader = function (cb) {
 	var targetDir = path.join(__dirname, 'test/fixtures/generated');
 	pathReader(targetDir, function(err, files) {
 		if (err) { return cb(err); }
+		var counter = 0;
+		if (counter === files.length) {cb();}
 		files.forEach(function(element) {
 			var targetFile = path.join(targetDir, element);
-			fs.unlink(targetFile);
+			fs.unlink(targetFile, function(err) {
+				// TODO: handle errors
+				counter += 1;
+				if (counter === files.length) {cb();} 	
+			});
 		});
-		cb();
 	});
 };
 
@@ -90,9 +95,10 @@ var sourcePage = module.exports.sourcePage = function(path, cb) {
 	});
 };
 
-//Splits the default template into two parts on {{ content }}
+
 /**
  * Reading the contents of the template pages
+ * Splits the default template into two parts on {{ content }}
  *
  * @function
  * @param {string} path - The path of the source template.
@@ -107,4 +113,38 @@ var sourceTemplate = module.exports.sourceTemplate = function(path, cb) {
 			cb(defaultTemplate);
 		}
 	});
+};
+
+/**
+ * Generates files using a default template
+ * TODO: make function take arguments for template and page path.
+ *
+ * @function
+ * @param {function} cb - The callback to call
+ */
+var generator = module.exports.generator = function (cb) {
+	fileShreader(function() {
+		var mP = __dirname;
+		var tempPath = path.join(mP, 'test/fixtures/source/layouts/default.html');
+		var pagePath = path.join(mP, 'test/fixtures/source/pages');
+		sourceTemplate(tempPath, function(temp) {
+			sourcePage(pagePath, function(pages) {
+				var counter = 0;
+				if (counter === pages.length) {cb();}
+				pages.forEach(function(eachPage) {
+					fileReader(path.join(pagePath, eachPage), function(err, contents) {
+						if (err) throw err;
+						var resultArray = temp[0].concat(contents, temp[1]);
+						// console.log(resultArray);
+						var writePath = path.join(mP, 'test/fixtures/generated', eachPage);
+						fileWriter(writePath, resultArray, function(err){});
+						//TODO: Errors handling
+						counter +=1;
+						if (counter === pages.length) {cb();}
+					});
+				});
+
+			});
+		});
+	}); 
 };

@@ -19,29 +19,10 @@ program
   .option('-g, --gen', 'Makes the file with template and source')
   .parse(process.argv);
 
-var generator = function () {
-	lib.fileShreader(function() {
-		var mP = __dirname;
-		var tempPath = path.join(mP, 'test/fixtures/source/layouts/default.html');
-		var pagePath = path.join(mP, 'test/fixtures/source/pages');
-		lib.sourceTemplate(tempPath, function(temp) {
-			lib.sourcePage(pagePath, function(pages) {
-				pages.forEach(function(eachPage) {
-					lib.fileReader(path.join(pagePath, eachPage), function(err, contents) {
-						if (err) throw err;
-						var resultArray = temp[0].concat(contents, temp[1]);
-						console.log(resultArray);
-						var writePath = path.join(mP, 'test/fixtures/generated', eachPage);
-						lib.fileWriter(writePath, resultArray, function(){});
-					});
-				});
-
-			});
-		});
-	}); 
-};
-
-if (program.gen) generator();
+if (program.gen) {
+	lib.generator(function() {});
+	console.log('You have generated files');
+}
 
 if (program.deletegen) {
 	lib.fileShreader(function(){}); 
