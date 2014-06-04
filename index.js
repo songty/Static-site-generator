@@ -42,9 +42,9 @@ var pathReader = module.exports.pathReader = function (ipath, cb) {
  */
 var fileWriter = module.exports.fileWriter = function (newFile, contents, cb) {
 	fs.writeFile(newFile, contents, options, function (err) {
-		if (err) throw err;
+		if (err) {throw err;}
 		cb();
-  	});
+	});
 };
 
 /**
@@ -61,10 +61,10 @@ var fileShreader  = module.exports.fileShreader = function (cb) {
 		if (counter === files.length) {cb();}
 		files.forEach(function(element) {
 			var targetFile = path.join(targetDir, element);
-			fs.unlink(targetFile, function(err) {
+			fs.unlink(targetFile, function() {
 				// TODO: handle errors
 				counter += 1;
-				if (counter === files.length) {cb();} 	
+				if (counter === files.length) { cb(); } 	
 			});
 		});
 	});
@@ -133,11 +133,11 @@ var generator = module.exports.generator = function (cb) {
 				if (counter === pages.length) {cb();}
 				pages.forEach(function(eachPage) {
 					fileReader(path.join(pagePath, eachPage), function(err, contents) {
-						if (err) throw err;
+						if (err) { throw err; }
 						var resultArray = temp[0].concat(contents, temp[1]);
 						// console.log(resultArray);
 						var writePath = path.join(mP, 'test/fixtures/generated', eachPage);
-						fileWriter(writePath, resultArray, function(err){});
+						fileWriter(writePath, resultArray, function(){});
 						//TODO: Errors handling
 						counter +=1;
 						if (counter === pages.length) {cb();}
