@@ -4,7 +4,7 @@
   "description": "making static site generator",
   "main": "sitegen",
   "scripts": {
-    "test": "mocha"
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report $(if [ \"$TRAVIS\" ]; then echo lcovonly; else echo html; fi) -- && if [ \"$TRAVIS\" ]; then cat ./coverage/lcov.info | ./node_modules/.bin/coveralls; fi"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,9 @@
   "homepage": "https://github.com/songty/Static-site-generator-",
   "devDependencies": {
     "chai": "^1.9.1",
-    "mocha": "^1.20.1"
+    "coveralls": "^2.10.0",
+    "istanbul": "^0.2.10",
+    "mocha": "^1.20.1",
+    "travis": "^0.1.1"
   }
 }
