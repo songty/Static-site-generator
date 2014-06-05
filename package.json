@@ -1,5 +1,5 @@
 {
-  "name": "Static-site-generator-",
+  "name": "static-site-generator-",
   "version": "0.1.0",
   "description": "making static site generator",
   "main": "sitegen",
@@ -10,6 +10,10 @@
     "type": "git",
     "url": "git://github.com/songty/Static-site-generator-.git"
   },
+  "bin": {
+    "sitegen": "./sitegen"
+  },
+
   "author": "Tian Song",
   "license": "MIT",
   "bugs": {

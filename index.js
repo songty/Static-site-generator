@@ -1,3 +1,5 @@
+'use strict';
+
 var fs = require('fs');
 var options = { encoding: 'utf8' };
 var path = require('path');

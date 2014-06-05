@@ -1,5 +1,7 @@
-var chai = require('chai');
-var expect = chai.expect;
+// var chai = require('chai');
+'use strict';
+
+var expect = require('chai').expect;
 var lib = require('../index');
 var path = require('path');
 var tmp = require('temp').track();
