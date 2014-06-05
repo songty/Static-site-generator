@@ -87,15 +87,16 @@ describe('fileShreader()', function() {
 
 describe('generator()', function() {
 	it('creates files from template with source pages', function(done) {
-		tmp.mkdir('new', function(err, dirPath) {
+		// tmp.mkdir('new', function(err, dirPath) {
 			lib.generator(function() {
-				lib.pathReader(dirPath, function(err, files) {
+				lib.pathReader(fixtures('generated'), function(err, files) {
+					// console.log(fixtures('source'));
 					lib.pathReader(fixtures('source'), function(err, source) {
 						expect(files.length).to.be.eql(source.length);
 						done();
 					});
 				});
 			});
-		});
+		// });
 	});
 });
