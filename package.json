@@ -13,7 +13,6 @@
   "bin": {
     "sitegen": "./sitegen"
   },
-
   "author": "Tian Song",
   "license": "MIT",
   "bugs": {
@@ -28,5 +27,8 @@
     "temp": "^0.8.0",
     "tmp": "0.0.23",
     "travis": "^0.1.1"
+  },
+  "dependencies": {
+    "commander": "^2.2.0"
   }
 }
