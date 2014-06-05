@@ -4,7 +4,7 @@ This is my static site generator
 
 [travis-url]: http://travis-ci.org/songty/Static-site-generator
 [travis-image]: https://secure.travis-ci.org/songty/Static-site-generator.png?branch=master
-[npm-url]: https://npmjs.org/package/Static-site-generator
+[npm-url]: https://npmjs.org/package/static-site-generator-
 [npm-image]: https://badge.fury.io/js/Static-site-generator.png
 [codeclimate-image]: https://codeclimate.com/github/songty/Static-site-generator.png
 [codeclimate-url]: https://codeclimate.com/github/songty/Static-site-generator
