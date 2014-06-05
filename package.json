@@ -1,6 +1,6 @@
 {
   "name": "static-site-generator-",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "making static site generator",
   "main": "sitegen",
   "scripts": {
