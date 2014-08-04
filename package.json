@@ -10,6 +10,11 @@
     "type": "git",
     "url": "git://github.com/songty/Static-site-generator-.git"
   },
+  "keywords": [
+    "static",
+    "site",
+    "generator"
+  ],
   "bin": {
     "sitegen": "./sitegen"
   },
