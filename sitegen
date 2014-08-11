@@ -16,7 +16,7 @@ var lib = require('./index');
 program
   .version(require('./package').version)
   .option('-d, --deletegen', 'Deletes files in generated')
-  // .option('-ab, --template-source', 'Generates template file with source')
+  .option('-ab, --template-source', 'Generates template file with source')
   .option('-g, --gen', 'Makes the file with template and source')
   .parse(process.argv);
 
